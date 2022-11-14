@@ -1,5 +1,4 @@
 var SpeechRecognition = window.webkitSpeechRecognition;
-var getId = document.getElementById
 
 var recognition = new SpeechRecognition();
 
@@ -14,16 +13,36 @@ recognition.onresult = function(event){
     var content = event.results[0][0].transcript;
     document.getElementById("textbox").innerHTML = content;
     console.log(content);
-    speak();
+    if (content == "take my selfie"){
+        speak();
+    }
+ 
 
 }
 function speak(){
 var synth = window.speechSynthesis;
-var speak_data = document.getElementById("textbox").value;
+var speak_data = "taking your selfie 1 secondss";
 var utter = new SpeechSynthesisUtterance(speak_data);
 synth.speak(utter);
 Webcam.attach(camera);
+setTimeout(
+    function(){
+    take_snapshot();
+    
+    },2000);
 
+    setTimeout(
+        function(){
+        take_snapshot1();
+ 
+        },4000);
+
+        setTimeout(
+            function(){
+            take_snapshot2();
+
+            },6000);
+        
 }
 
 Webcam.set({
@@ -32,4 +51,21 @@ Webcam.set({
     image_format:"png",
     png_quality:90
 });
-camera = getId("camera");
+camera = document.getElementById("camera");
+ function take_snapshot (){
+    Webcam.snap(function(data_uri){
+        document.getElementById("result").innerHTML = '<img id="selfie_image" src="'+data_uri+'">';
+    });
+ }
+ function take_snapshot1 (){
+    Webcam.snap(function(data_uri){
+        document.getElementById("result1").innerHTML = '<img id="selfie_image1" src="'+data_uri+'">';
+    });
+ }
+ function take_snapshot2 (){
+    Webcam.snap(function(data_uri){
+        document.getElementById("result2").innerHTML = '<img id="selfie_image2" src="'+data_uri+'">';
+    });
+ }
+
+ 
